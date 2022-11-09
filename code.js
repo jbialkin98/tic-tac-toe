@@ -20,10 +20,10 @@ let drawGameBoard = (() => {
     let create = () => {
         gameBoard.createArray();
         let boardArray = gameBoard.gameArray;
-        console.log(boardArray);
         for (let i = 0; i < boardArray.length; i++) {
             let newDiv = document.createElement('div');
             newDiv.classList.add('gridCell');
+            newDiv.setAttribute('id', `${i}`);
             container.appendChild(newDiv);
         }
     }
@@ -32,18 +32,32 @@ let drawGameBoard = (() => {
 
 drawGameBoard.create();
 
-const gridCell = document.querySelectorAll('.gridCell');
-gridCell.forEach(gridCell => gridCell.addEventListener('click', () => {
-    playGame.playTurn(gridCell);
-}));
+let cellClicked = (() => {
+    const gridCell = document.querySelectorAll('.gridCell');
+    let clickedCell = () => {
+        gridCell.forEach(gridCell => gridCell.addEventListener('click', () => {
+            playGame.playTurn(gridCell);
+        }));
+    }
+    return {clickedCell};
+})();
+
+cellClicked.clickedCell();
 
 let playGame = (() => {
     let turnNumber = 0;
+    let gameArray = gameBoard.gameArray;
     let playTurn = (gridCell) => {
+        let index = gridCell.id;
+        if (gridCell.textContent != '') {
+            return;
+        }
         if (turnNumber % 2 == 0) {
             gridCell.textContent = 'X';
+            gameArray.splice(index, 1, 'X');
         } else {
             gridCell.textContent = 'O';
+            gameArray.splice(index, 1, 'O');
         }
         turnNumber++;
     }
