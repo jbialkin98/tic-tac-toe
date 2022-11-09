@@ -1,6 +1,7 @@
 .container {
     display: grid;
     grid-template-columns: repeat(3, 100px);
+    justify-content: center;
 }
 
 .gridCell {

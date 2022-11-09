@@ -1,3 +1,10 @@
+const player = (name, symbol) => {
+    return {name, symbol};
+}
+
+const playerOne = player('Player One', 'X');
+const playerTwo = player('Player Two', 'O');
+
 let gameBoard = (() => {
     let gameArray = [];
     let createArray = () => {
@@ -17,7 +24,6 @@ let drawGameBoard = (() => {
         for (let i = 0; i < boardArray.length; i++) {
             let newDiv = document.createElement('div');
             newDiv.classList.add('gridCell');
-            newDiv.textContent = 'Test';
             container.appendChild(newDiv);
         }
     }
@@ -28,5 +34,18 @@ drawGameBoard.create();
 
 const gridCell = document.querySelectorAll('.gridCell');
 gridCell.forEach(gridCell => gridCell.addEventListener('click', () => {
-    gridCell.textContent = 'X';
+    playGame.playTurn(gridCell);
 }));
+
+let playGame = (() => {
+    let turnNumber = 0;
+    let playTurn = (gridCell) => {
+        if (turnNumber % 2 == 0) {
+            gridCell.textContent = 'X';
+        } else {
+            gridCell.textContent = 'O';
+        }
+        turnNumber++;
+    }
+    return {playTurn, turnNumber}
+})();
