@@ -1,4 +1,4 @@
-let gameBoard = () => {
+let gameBoard = (() => {
     let gameArray = [];
     let createArray = () => {
         for (let i = 0; i < 9; i++) {
@@ -6,9 +6,9 @@ let gameBoard = () => {
         }
         console.log(gameArray);
     }
-    return {createArray};
-}
+    return {createArray, gameArray};
+})();
 
-let board = gameBoard();
+gameBoard.createArray();
+console.log(gameBoard.gameArray);
 
-board.createArray();
