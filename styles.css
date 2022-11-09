@@ -3,7 +3,10 @@
     grid-template-columns: repeat(3, 100px);
 }
 
-.newDiv {
+.gridCell {
     border: 1px solid black;
     height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

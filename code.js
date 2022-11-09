@@ -10,18 +10,23 @@ let gameBoard = (() => {
 
 let drawGameBoard = (() => {
     let container = document.querySelector('.container');
-    let test = () => {
+    let create = () => {
         gameBoard.createArray();
         let boardArray = gameBoard.gameArray;
         console.log(boardArray);
         for (let i = 0; i < boardArray.length; i++) {
             let newDiv = document.createElement('div');
-            newDiv.classList.add('newDiv');
+            newDiv.classList.add('gridCell');
             newDiv.textContent = 'Test';
             container.appendChild(newDiv);
         }
     }
-    return {test};
+    return {create};
 })();
 
-drawGameBoard.test();
+drawGameBoard.create();
+
+const gridCell = document.querySelectorAll('.gridCell');
+gridCell.forEach(gridCell => gridCell.addEventListener('click', () => {
+    gridCell.textContent = 'X';
+}));
