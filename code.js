@@ -19,8 +19,8 @@ let drawGameBoard = (() => {
     let container = document.querySelector('.container');
     let create = () => {
         gameBoard.createArray();
-        let boardArray = gameBoard.gameArray;
-        for (let i = 0; i < boardArray.length; i++) {
+        let gameArray = gameBoard.gameArray;
+        for (let i = 0; i < gameArray.length; i++) {
             let newDiv = document.createElement('div');
             newDiv.classList.add('gridCell');
             newDiv.setAttribute('id', `${i}`);
@@ -94,4 +94,22 @@ let checkTurn = (() => {
         }
     }
     return {checkForWinner}
+})();
+
+let clearBoard = (() => {
+    let startOver = document.querySelector('.startOver');
+    startOver.addEventListener('click', () => {
+        deleteGameArray();
+        deleteGrid();
+        drawGameBoard.create(); 
+    });
+    let deleteGrid = () => {
+        let existingDivs = document.querySelectorAll('.gridCell');
+        for (let i = 0; i < existingDivs.length; i++) {
+            existingDivs[i].remove();
+        }
+    }
+    let deleteGameArray = () => {
+        gameBoard.gameArray = [];
+    }
 })();
