@@ -60,6 +60,38 @@ let playGame = (() => {
             gameArray.splice(index, 1, 'O');
         }
         turnNumber++;
+        checkTurn.checkForWinner();
     }
     return {playTurn, turnNumber}
+})();
+
+let checkTurn = (() => {
+    let gameArray = gameBoard.gameArray;
+    let checkForWinner = () => {
+        for (let i = 0; i < 3; i++) {
+            if (gameArray[i] == null) {
+                continue;
+            }
+            if (gameArray[i] == gameArray[i + 3] && gameArray[i + 3] == gameArray[i + 6]) {
+                console.log("winner: vertical");
+                // check for vertical win
+            } else if (gameArray[i] == gameArray[i + 4] && gameArray[i + 4] == gameArray[i + 8]) {
+                console.log("winner: diag right")
+                // check for diagonal right win
+            } else if (gameArray[i] == gameArray[i + 2] && gameArray[i + 2] == gameArray[i + 4]) {
+                console.log("winner: diag left")
+                // check for diagonal left win
+            }
+        }
+        // check for horizontal win
+        for (let j = 0; j <= 6; j = j + 3) {
+            if (gameArray[j] == null) {
+                continue;
+            }
+            if (gameArray[j] == gameArray[j + 1] && gameArray[j + 1] == gameArray[j + 2]) {
+                console.log("winner: horizontal");
+            }
+        }
+    }
+    return {checkForWinner}
 })();
