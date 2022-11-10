@@ -53,10 +53,10 @@ let playGame = (() => {
             return;
         }
         if (turnNumber % 2 == 0) {
-            gridCell.textContent = 'X';
+            gridCell.innerHTML = '&#10005;';
             gameArray.splice(index, 1, 'X');
         } else {
-            gridCell.textContent = 'O';
+            gridCell.innerHTML = '&#11096;';
             gameArray.splice(index, 1, 'O');
         }
         turnNumber++;
