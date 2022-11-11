@@ -2,6 +2,11 @@
     font-size: 20px;
 }
 
+.centerContent {
+    display: flex;
+    justify-content: space-around;
+}
+
 .container {
     display: grid;
     grid-template-columns: repeat(3, 100px);
@@ -57,3 +62,8 @@
     opacity: 1;
     pointer-events: all;
 }
+
+.playerOneName.active, .playerTwoName.active {
+    background-color: green;
+}
+

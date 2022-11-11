@@ -32,6 +32,8 @@ let drawGameBoard = (() => {
             newDiv.setAttribute('id', `${i}`);
             container.appendChild(newDiv);
         }
+        let playerOneLabel = document.querySelector('.playerOneName');
+        playerOneLabel.classList.add('active');
     }
     return {create};
 })();
@@ -39,7 +41,6 @@ let drawGameBoard = (() => {
 drawGameBoard.create();
 
 let cellClicked = (() => {
-    
     let clickedCell = () => {
         const gridCell = document.querySelectorAll('.gridCell');
         gridCell.forEach(gridCell => gridCell.addEventListener('click', () => {
@@ -54,6 +55,8 @@ cellClicked.clickedCell();
 let playGame = (() => {
     let turnNumber = 0;
     let gameArray = gameBoard.gameArray;
+    let playerOneLabel = document.querySelector('.playerOneName');
+    let playerTwoLabel = document.querySelector('.playerTwoName');
     let resetTurnNumber = () => {
         turnNumber = 0;
     }
@@ -67,10 +70,14 @@ let playGame = (() => {
             gridCell.innerHTML = '&#10005;';
             gameArray.splice(index, 1, 'X');
             player = playerOne;
+            playerOneLabel.classList.remove('active');
+            playerTwoLabel.classList.add('active');
         } else {
             gridCell.innerHTML = '&#11096;';
             gameArray.splice(index, 1, 'O');
             player = playerTwo;
+            playerTwoLabel.classList.remove('active');
+            playerOneLabel.classList.add('active');
         }
         turnNumber++;
         checkTurn.checkForWinner(player);
