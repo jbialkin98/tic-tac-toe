@@ -108,12 +108,15 @@ let checkTurn = (() => {
 let clearBoard = (() => {
     let startOver = document.querySelector('.startOver');
     startOver.addEventListener('click', () => {
+        restartGame();
+    });
+    let restartGame = () => {
         deleteGameArray();
         deleteGrid();
         drawGameBoard.create(); 
         cellClicked.clickedCell();
         playGame.resetTurnNumber();
-    });
+    }
     let deleteGrid = () => {
         let existingDivs = document.querySelectorAll('.gridCell');
         for (let i = 0; i < existingDivs.length; i++) {
@@ -123,6 +126,7 @@ let clearBoard = (() => {
     let deleteGameArray = () => {
         gameBoard.deleteArray();
     }
+    return {restartGame};
 })();
 
 let winner = (() => {
@@ -131,6 +135,13 @@ let winner = (() => {
         let overlay = document.querySelector('.overlay');
         winnerPopUp.classList.add('active');
         overlay.classList.add('active');
+
+        let playAgain = document.querySelector('.playAgain');
+        playAgain.addEventListener('click', () => {
+            clearBoard.restartGame();
+            winnerPopUp.classList.remove('active');
+        overlay.classList.remove('active');
+        });
     }
     return {matchWon};
 })();
