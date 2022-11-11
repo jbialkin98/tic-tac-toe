@@ -58,6 +58,7 @@ let playGame = (() => {
         turnNumber = 0;
     }
     let playTurn = (gridCell) => {
+        let player;
         let index = gridCell.id;
         if (gridCell.textContent != '') {
             return;
@@ -65,19 +66,21 @@ let playGame = (() => {
         if (turnNumber % 2 == 0) {
             gridCell.innerHTML = '&#10005;';
             gameArray.splice(index, 1, 'X');
+            player = playerOne;
         } else {
             gridCell.innerHTML = '&#11096;';
             gameArray.splice(index, 1, 'O');
+            player = playerTwo;
         }
         turnNumber++;
-        checkTurn.checkForWinner();
+        checkTurn.checkForWinner(player);
     }
     return {playTurn, resetTurnNumber, turnNumber}
 })();
 
 let checkTurn = (() => {
     let gameArray = gameBoard.gameArray;
-    let checkForWinner = () => {
+    let checkForWinner = (player) => {
         for (let i = 0; i < 3; i++) {
             if (gameArray[i] == null) {
                 continue;
@@ -88,7 +91,7 @@ let checkTurn = (() => {
                 // check for diagonal right win
                 (gameArray[i] == gameArray[i + 2] && gameArray[i + 2] == gameArray[i + 4])) {
                 // check for diagonal left win
-                winner.matchWon();
+                winner.matchWon(player);
             }
         }
         
@@ -98,7 +101,7 @@ let checkTurn = (() => {
             }
             if (gameArray[j] == gameArray[j + 1] && gameArray[j + 1] == gameArray[j + 2]) {
                 // check for horizontal win
-                winner.matchWon();
+                winner.matchWon(player);
             }
         }
     }
@@ -130,11 +133,13 @@ let clearBoard = (() => {
 })();
 
 let winner = (() => {
-    let matchWon = () => {
+    let matchWon = (player) => {
         let winnerPopUp = document.querySelector('.matchResults');
+        let winner = document.querySelector('.winner');
         let overlay = document.querySelector('.overlay');
         winnerPopUp.classList.add('active');
         overlay.classList.add('active');
+        winner.textContent = `${player.name} won!`;
 
         let playAgain = document.querySelector('.playAgain');
         playAgain.addEventListener('click', () => {
