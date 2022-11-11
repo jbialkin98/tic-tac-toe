@@ -82,24 +82,23 @@ let checkTurn = (() => {
             if (gameArray[i] == null) {
                 continue;
             }
-            if (gameArray[i] == gameArray[i + 3] && gameArray[i + 3] == gameArray[i + 6]) {
-                console.log("winner: vertical");
+            if ((gameArray[i] == gameArray[i + 3] && gameArray[i + 3] == gameArray[i + 6]) ||
                 // check for vertical win
-            } else if (gameArray[i] == gameArray[i + 4] && gameArray[i + 4] == gameArray[i + 8]) {
-                console.log("winner: diag right")
+                (gameArray[i] == gameArray[i + 4] && gameArray[i + 4] == gameArray[i + 8]) ||
                 // check for diagonal right win
-            } else if (gameArray[i] == gameArray[i + 2] && gameArray[i + 2] == gameArray[i + 4]) {
-                console.log("winner: diag left")
+                (gameArray[i] == gameArray[i + 2] && gameArray[i + 2] == gameArray[i + 4])) {
                 // check for diagonal left win
+                winner.matchWon();
             }
         }
-        // check for horizontal win
+        
         for (let j = 0; j <= 6; j = j + 3) {
             if (gameArray[j] == null) {
                 continue;
             }
             if (gameArray[j] == gameArray[j + 1] && gameArray[j + 1] == gameArray[j + 2]) {
-                console.log("winner: horizontal");
+                // check for horizontal win
+                winner.matchWon();
             }
         }
     }
@@ -124,4 +123,14 @@ let clearBoard = (() => {
     let deleteGameArray = () => {
         gameBoard.deleteArray();
     }
+})();
+
+let winner = (() => {
+    let matchWon = () => {
+        let winnerPopUp = document.querySelector('.matchResults');
+        let overlay = document.querySelector('.overlay');
+        winnerPopUp.classList.add('active');
+        overlay.classList.add('active');
+    }
+    return {matchWon};
 })();
