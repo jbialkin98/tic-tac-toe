@@ -1,9 +1,9 @@
-const player = (name, symbol) => {
-    return {name, symbol};
+const player = (name, symbol, score) => {
+    return {name, symbol, score};
 }
 
-const playerOne = player('Player One', 'X');
-const playerTwo = player('Player Two', 'O');
+const playerOne = player('Player One', 'X', 0);
+const playerTwo = player('Player Two', 'O', 0);
 
 let gameBoard = (() => {
     let gameArray = [];
@@ -22,6 +22,18 @@ let gameBoard = (() => {
 
 gameBoard.createArray();
 
+let updateScoreDisplay = (() => {
+    let playerOneScore = document.querySelector('.playerOneScoreNumber');
+    let playerTwoScore = document.querySelector('.playerTwoScoreNumber');
+
+    let showScores = () => {
+        playerOneScore.textContent = `${playerOne.score}`;
+        playerTwoScore.textContent = `${playerTwo.score}`;
+    }
+
+    return {showScores};
+})();
+
 let drawGameBoard = (() => {
     let container = document.querySelector('.container');
     let create = () => {
@@ -34,6 +46,8 @@ let drawGameBoard = (() => {
         }
         let playerOneLabel = document.querySelector('.playerOneName');
         playerOneLabel.classList.add('active');
+
+        updateScoreDisplay.showScores();
     }
     return {create};
 })();
@@ -144,9 +158,16 @@ let winner = (() => {
         let winnerPopUp = document.querySelector('.matchResults');
         let winner = document.querySelector('.winner');
         let overlay = document.querySelector('.overlay');
+        let playerOneLabel = document.querySelector('.playerOneName');
+        let playerTwoLabel = document.querySelector('.playerTwoName');
+        playerOneLabel.classList.remove('active');
+        playerTwoLabel.classList.remove('active');
         winnerPopUp.classList.add('active');
         overlay.classList.add('active');
+
         winner.textContent = `${player.name} won!`;
+        player.score += 1;
+        updateScoreDisplay.showScores();
 
         let playAgain = document.querySelector('.playAgain');
         playAgain.addEventListener('click', () => {
@@ -157,3 +178,4 @@ let winner = (() => {
     }
     return {matchWon};
 })();
+
