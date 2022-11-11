@@ -54,6 +54,9 @@ cellClicked.clickedCell();
 let playGame = (() => {
     let turnNumber = 0;
     let gameArray = gameBoard.gameArray;
+    let resetTurnNumber = () => {
+        turnNumber = 0;
+    }
     let playTurn = (gridCell) => {
         let index = gridCell.id;
         if (gridCell.textContent != '') {
@@ -69,7 +72,7 @@ let playGame = (() => {
         turnNumber++;
         checkTurn.checkForWinner();
     }
-    return {playTurn, turnNumber}
+    return {playTurn, resetTurnNumber, turnNumber}
 })();
 
 let checkTurn = (() => {
@@ -110,7 +113,7 @@ let clearBoard = (() => {
         deleteGrid();
         drawGameBoard.create(); 
         cellClicked.clickedCell();
-        playGame.turnNumber = 0;
+        playGame.resetTurnNumber();
     });
     let deleteGrid = () => {
         let existingDivs = document.querySelectorAll('.gridCell');
