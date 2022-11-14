@@ -125,6 +125,10 @@ let checkTurn = (() => {
                 winner.matchWon(player);
             }
         }
+
+        if (gameArray.includes(null) == false) {
+            winner.tie();
+        }
     }
     return {checkForWinner}
 })();
@@ -156,21 +160,34 @@ let clearBoard = (() => {
 })();
 
 let winner = (() => {
+    let winnerPopUp = document.querySelector('.matchResults');
+    let winner = document.querySelector('.winner');
+    let overlay = document.querySelector('.overlay');
+    let playerOneLabel = document.querySelector('.playerOneName');
+    let playerTwoLabel = document.querySelector('.playerTwoName');
+
     let matchWon = (player) => {
-        let winnerPopUp = document.querySelector('.matchResults');
-        let winner = document.querySelector('.winner');
-        let overlay = document.querySelector('.overlay');
-        let playerOneLabel = document.querySelector('.playerOneName');
-        let playerTwoLabel = document.querySelector('.playerTwoName');
+        readyPopUp();
+        winner.textContent = `${player.name} won!`;
+        player.score += 1;
+        updateScoreDisplay.showScores();
+        popUpDisplay();
+    }
+
+    let tie = () => {
+        readyPopUp();
+        winner.textContent = 'Tie!';
+        popUpDisplay();
+    }
+
+    let readyPopUp = () => {
         playerOneLabel.classList.remove('active');
         playerTwoLabel.classList.remove('active');
         winnerPopUp.classList.add('active');
         overlay.classList.add('active');
+    }
 
-        winner.textContent = `${player.name} won!`;
-        player.score += 1;
-        updateScoreDisplay.showScores();
-
+    let popUpDisplay = () => {
         let playAgain = document.querySelector('.playAgain');
         playAgain.addEventListener('click', () => {
             clearBoard.restartGame();
@@ -178,6 +195,6 @@ let winner = (() => {
         overlay.classList.remove('active');
         });
     }
-    return {matchWon};
+    return {matchWon, tie};
 })();
 
