@@ -1,5 +1,28 @@
 :root {
     font-size: 20px;
+    --button-background-color: #00bcd8;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    margin: 10px;
+}
+
+button {
+    background-color: #00bcd8;
+    border: none;
+    width: 150px;
+    height: 40px;
+    border-radius: 10px;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
 }
 
 .centerContent {
@@ -14,6 +37,7 @@
     grid-template-columns: repeat(3, 100px);
     justify-content: center;
     position: relative;
+    z-index: 1;
 }
 
 .gridCell {
@@ -27,18 +51,20 @@
 }
 
 .matchResults {
-    border: 10px solid black;
+    width: 50%;
+    border: 10px solid #00406e;
+    border-radius: 15px;
     position: fixed;
     top: 20%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
-    padding: 10px;
+    padding: 20px 10px;
     transition: 200ms ease-in-out;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: 20px;
     background-color: white;
     font-weight: bold;
     z-index: 10;
@@ -58,6 +84,7 @@
     transition: 200ms ease-in-out;
     background-color: rgba(0, 0, 0, .3);
     pointer-events: none;
+    z-index: 5;
 }
 
 .overlay.active {
@@ -65,8 +92,20 @@
     pointer-events: all;
 }
 
+.playerOne, .playerTwo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.playerOneName, .playerTwoName {
+    padding: 10px;
+}
+
 .playerOneName.active, .playerTwoName.active {
-    background-color: green;
+    background-color: var(--button-background-color);
+    color: white;
+    border-radius: 10px;
 }
 
 .playerOneScore, .playerTwoScore {
@@ -79,12 +118,6 @@
     gap: 30px;
 }
 
-.buttonBottom {
+.startOver {
     margin-top: 10px;
-    display: flex;
-    justify-content: center;
-}
-
-@media (max-width: 700px) {
-    
 }
