@@ -54,6 +54,30 @@ let drawGameBoard = (() => {
 
 drawGameBoard.create();
 
+let opponentButtonClicked = (() => {
+    let clickedOpponentButton = () => {
+        const opponentButton = document.querySelectorAll('.opponentButton');
+        const playerButton = document.getElementById('player');
+        const computerButton = document.getElementById('computer');
+        opponentButton.forEach(opponentButton => opponentButton.addEventListener('click', () => {
+            let id = opponentButton.id;
+            switch (id) {
+                case 'player':
+                    playerButton.classList.add('active');
+                    computerButton.classList.remove('active');
+                case 'computer':
+                    computerButton.classList.add('active');
+                    playerButton.classList.remove('active');
+                default:
+                    break;
+            }
+        }));
+    }
+    return {clickedOpponentButton};
+})();
+
+opponentButtonClicked.clickedOpponentButton();
+
 let cellClicked = (() => {
     let clickedCell = () => {
         const gridCell = document.querySelectorAll('.gridCell');
