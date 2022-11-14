@@ -132,6 +132,8 @@ let checkTurn = (() => {
 let clearBoard = (() => {
     let startOver = document.querySelector('.startOver');
     startOver.addEventListener('click', () => {
+        playerOne.score = 0;
+        playerTwo.score = 0;
         restartGame();
     });
     let restartGame = () => {
