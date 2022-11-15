@@ -61,15 +61,12 @@ let opponentButtonClicked = (() => {
         const computerButton = document.getElementById('computer');
         opponentButton.forEach(opponentButton => opponentButton.addEventListener('click', () => {
             let id = opponentButton.id;
-            switch (id) {
-                case 'player':
-                    playerButton.classList.add('active');
-                    computerButton.classList.remove('active');
-                case 'computer':
-                    computerButton.classList.add('active');
-                    playerButton.classList.remove('active');
-                default:
-                    break;
+            if (id == 'player') {
+                playerButton.classList.add('active');
+                computerButton.classList.remove('active');
+            } else if (id == 'computer') {
+                computerButton.classList.add('active');
+                playerButton.classList.remove('active');
             }
         }));
     }
@@ -120,7 +117,12 @@ let playGame = (() => {
         turnNumber++;
         checkTurn.checkForWinner(player);
     }
-    return {playTurn, resetTurnNumber, turnNumber}
+    const resetPlayerBackground = () => {
+        playerOneLabel.classList.remove('active');
+        playerTwoLabel.classList.remove('active');
+        playerOneLabel.classList.add('active');
+    }
+    return {playTurn, resetTurnNumber, resetPlayerBackground, turnNumber}
 })();
 
 let checkTurn = (() => {
@@ -170,6 +172,7 @@ let clearBoard = (() => {
         drawGameBoard.create(); 
         cellClicked.clickedCell();
         playGame.resetTurnNumber();
+        playGame.resetPlayerBackground();
     }
     let deleteGrid = () => {
         let existingDivs = document.querySelectorAll('.gridCell');
