@@ -133,7 +133,7 @@ let playGame = (() => {
             playerOneLabel.classList.remove('active');
             playerTwoLabel.classList.add('active');
             if (computerBool == true) {
-                console.log('ye');
+                easyBot();
             }
         } else {
             gridCell.innerHTML = '&#11096;';
@@ -145,6 +145,21 @@ let playGame = (() => {
         turnNumber++;
         checkTurn.checkForWinner(player);
     }
+
+    let easyBot = () => {
+        let possibleMoves = [];
+        gameArray.forEach((element, index) => {
+            if (element == null) {
+                possibleMoves.push(index);
+            }
+        });
+        console.log(possibleMoves);
+        let nextMove = possibleMoves[Math.floor(Math.random()*possibleMoves.length)];
+        console.log(nextMove);
+        gameArray.splice(nextMove, 1, 'O');
+    }
+
+
     const resetPlayerBackground = () => {
         playerOneLabel.classList.remove('active');
         playerTwoLabel.classList.remove('active');
