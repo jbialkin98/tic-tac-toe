@@ -54,26 +54,30 @@ let drawGameBoard = (() => {
 
 drawGameBoard.create();
 
-let opponentButtonClicked = (() => {
-    let clickedOpponentButton = () => {
-        const opponentButton = document.querySelectorAll('.opponentButton');
-        const playerButton = document.getElementById('player');
-        const computerButton = document.getElementById('computer');
-        opponentButton.forEach(opponentButton => opponentButton.addEventListener('click', () => {
-            let id = opponentButton.id;
-            if (id == 'player') {
-                playerButton.classList.add('active');
-                computerButton.classList.remove('active');
-            } else if (id == 'computer') {
-                computerButton.classList.add('active');
-                playerButton.classList.remove('active');
-            }
-        }));
-    }
-    return {clickedOpponentButton};
-})();
+// let opponentButtonClicked = (() => {
+//     let computerBool = false;
+//     const updatedComputerBool = () => computerBool;
+//     let clickedOpponentButton = () => {
+//         const opponentButton = document.querySelectorAll('.opponentButton');
+//         const playerButton = document.getElementById('player');
+//         const computerButton = document.getElementById('computer');
+//         opponentButton.forEach(opponentButton => opponentButton.addEventListener('click', () => {
+//             let id = opponentButton.id;
+//             if (id == 'player') {
+//                 playerButton.classList.add('active');
+//                 computerButton.classList.remove('active');
+//                 computerBool = false;
+//             } else if (id == 'computer') {
+//                 computerButton.classList.add('active');
+//                 playerButton.classList.remove('active');
+//                 computerBool = true;
+//             }
+//         }));
+//     }
+//     return {clickedOpponentButton, updatedComputerBool};
+// })();
 
-opponentButtonClicked.clickedOpponentButton();
+// opponentButtonClicked.clickedOpponentButton();
 
 let cellClicked = (() => {
     let clickedCell = () => {
@@ -92,6 +96,27 @@ let playGame = (() => {
     let gameArray = gameBoard.gameArray;
     let playerOneLabel = document.querySelector('.playerOneName');
     let playerTwoLabel = document.querySelector('.playerTwoName');
+
+    let computerBool = false;
+    let clickedOpponentButton = () => {
+        const opponentButton = document.querySelectorAll('.opponentButton');
+        const playerButton = document.getElementById('player');
+        const computerButton = document.getElementById('computer');
+        opponentButton.forEach(opponentButton => opponentButton.addEventListener('click', () => {
+            let id = opponentButton.id;
+            if (id == 'player') {
+                playerButton.classList.add('active');
+                computerButton.classList.remove('active');
+                computerBool = false;
+            } else if (id == 'computer') {
+                computerButton.classList.add('active');
+                playerButton.classList.remove('active');
+                computerBool = true;
+            }
+            console.log(computerBool);
+        }));
+    }
+
     let resetTurnNumber = () => {
         turnNumber = 0;
     }
@@ -107,6 +132,9 @@ let playGame = (() => {
             player = playerOne;
             playerOneLabel.classList.remove('active');
             playerTwoLabel.classList.add('active');
+            if (computerBool == true) {
+                console.log('ye');
+            }
         } else {
             gridCell.innerHTML = '&#11096;';
             gameArray.splice(index, 1, 'O');
@@ -122,8 +150,10 @@ let playGame = (() => {
         playerTwoLabel.classList.remove('active');
         playerOneLabel.classList.add('active');
     }
-    return {playTurn, resetTurnNumber, resetPlayerBackground, turnNumber}
+    return {playTurn, resetTurnNumber, resetPlayerBackground, clickedOpponentButton, turnNumber}
 })();
+
+playGame.clickedOpponentButton();
 
 let checkTurn = (() => {
     let gameArray = gameBoard.gameArray;
