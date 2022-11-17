@@ -112,7 +112,6 @@ let playGame = (() => {
             playerTwoLabel.classList.add('active');
             checkTurn.checkForWinner(player);
             let matchWon = checkTurn.checkForMatchWon();
-            console.log(matchWon);
             if (computerBool == true && matchWon == false) {
                 player = playerTwo;
                 setTimeout(() => easyBot(player), 1000);
@@ -164,6 +163,7 @@ let checkTurn = (() => {
     let gameArray = gameBoard.gameArray;
     let matchWon = false;
     let checkForWinner = (player) => {
+        // check for vertical win
         for (let i = 0; i < 3; i++) {
             if (gameArray[i] == null) {
                 continue;
@@ -171,9 +171,7 @@ let checkTurn = (() => {
             if (gameArray[i] == gameArray[i + 3] && gameArray[i + 3] == gameArray[i + 6]) {
                 matchWon = true;
                 winner.matchWon(player);
-            } else if (gameArray.includes(null) == false) {
-                winner.tie();
-            }
+            } 
         }
 
         if (gameArray[0] != null) {
@@ -203,9 +201,10 @@ let checkTurn = (() => {
             }
         }
 
-        // if (gameArray.includes(null) == false) {
-        //     winner.tie();
-        // }
+        if (gameArray.includes(null) == false && matchWon == false) {
+            winner.tie();
+        }
+
         checkForMatchWon();
     }
 
