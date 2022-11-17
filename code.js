@@ -135,6 +135,9 @@ let playGame = (() => {
                 possibleMoves.push(index);
             }
         });
+        if (possibleMoves.length == 0) {
+            return;
+        }
         let nextMove = possibleMoves[Math.floor(Math.random()*possibleMoves.length)];
         gameArray.splice(nextMove, 1, 'O');
         let opponentMoveCell = document.getElementById(`${nextMove}`);
@@ -165,17 +168,28 @@ let checkTurn = (() => {
             if (gameArray[i] == null) {
                 continue;
             }
-            if ((gameArray[i] == gameArray[i + 3] && gameArray[i + 3] == gameArray[i + 6]) ||
-                // check for vertical win
-                (gameArray[i] == gameArray[i + 4] && gameArray[i + 4] == gameArray[i + 8]) ||
-                // check for diagonal right win
-                (gameArray[i] == gameArray[i + 2] && gameArray[i + 2] == gameArray[i + 4])) {
-                // check for diagonal left win
+            if (gameArray[i] == gameArray[i + 3] && gameArray[i + 3] == gameArray[i + 6]) {
                 matchWon = true;
                 winner.matchWon(player);
             } else if (gameArray.includes(null) == false) {
                 winner.tie();
             }
+        }
+
+        if (gameArray[0] != null) {
+            if (gameArray[0] == gameArray[4] && gameArray[4] == gameArray[8]) {
+                matchWon = true;
+                winner.matchWon(player);
+            }
+            // check for diagonal right win
+        }
+
+        if (gameArray[2] != null) {
+            if (gameArray[2] == gameArray[4] && gameArray[4] == gameArray[6]) {
+                matchWon = true;
+                winner.matchWon(player);
+            }
+                // check for diagonal left win
         }
         
         for (let j = 0; j <= 6; j = j + 3) {
