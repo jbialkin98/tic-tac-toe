@@ -113,7 +113,6 @@ let playGame = (() => {
                 playerButton.classList.remove('active');
                 computerBool = true;
             }
-            console.log(computerBool);
         }));
     }
 
@@ -132,8 +131,10 @@ let playGame = (() => {
             player = playerOne;
             playerOneLabel.classList.remove('active');
             playerTwoLabel.classList.add('active');
+            console.log(turnNumber);
             if (computerBool == true) {
-                easyBot();
+                player = playerTwo;
+                easyBot(player);
             }
         } else {
             gridCell.innerHTML = '&#11096;';
@@ -146,17 +147,22 @@ let playGame = (() => {
         checkTurn.checkForWinner(player);
     }
 
-    let easyBot = () => {
+    let easyBot = (player) => {
         let possibleMoves = [];
         gameArray.forEach((element, index) => {
             if (element == null) {
                 possibleMoves.push(index);
             }
         });
-        console.log(possibleMoves);
         let nextMove = possibleMoves[Math.floor(Math.random()*possibleMoves.length)];
-        console.log(nextMove);
         gameArray.splice(nextMove, 1, 'O');
+        let opponentMoveCell = document.getElementById(`${nextMove}`);
+        opponentMoveCell.innerHTML = '&#11096;';
+        playerTwoLabel.classList.remove('active');
+        playerOneLabel.classList.add('active');
+        turnNumber++;
+        checkTurn.checkForWinner(player);
+        console.log(turnNumber);
     }
 
 
