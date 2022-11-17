@@ -134,7 +134,7 @@ let playGame = (() => {
             console.log(turnNumber);
             if (computerBool == true) {
                 player = playerTwo;
-                easyBot(player);
+                setTimeout(() => easyBot(player), 1000);
             }
         } else {
             gridCell.innerHTML = '&#11096;';
