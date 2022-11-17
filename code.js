@@ -54,31 +54,6 @@ let drawGameBoard = (() => {
 
 drawGameBoard.create();
 
-// let opponentButtonClicked = (() => {
-//     let computerBool = false;
-//     const updatedComputerBool = () => computerBool;
-//     let clickedOpponentButton = () => {
-//         const opponentButton = document.querySelectorAll('.opponentButton');
-//         const playerButton = document.getElementById('player');
-//         const computerButton = document.getElementById('computer');
-//         opponentButton.forEach(opponentButton => opponentButton.addEventListener('click', () => {
-//             let id = opponentButton.id;
-//             if (id == 'player') {
-//                 playerButton.classList.add('active');
-//                 computerButton.classList.remove('active');
-//                 computerBool = false;
-//             } else if (id == 'computer') {
-//                 computerButton.classList.add('active');
-//                 playerButton.classList.remove('active');
-//                 computerBool = true;
-//             }
-//         }));
-//     }
-//     return {clickedOpponentButton, updatedComputerBool};
-// })();
-
-// opponentButtonClicked.clickedOpponentButton();
-
 let cellClicked = (() => {
     let clickedCell = () => {
         const gridCell = document.querySelectorAll('.gridCell');
@@ -113,6 +88,9 @@ let playGame = (() => {
                 playerButton.classList.remove('active');
                 computerBool = true;
             }
+            playerOne.score = 0;
+            playerTwo.score = 0;
+            clearBoard.restartGame();
         }));
     }
 
