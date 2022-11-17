@@ -121,6 +121,7 @@ let playGame = (() => {
     }
     let playTurn = (gridCell) => {
         let player;
+        
         let index = gridCell.id;
         if (gridCell.textContent != '') {
             return;
@@ -131,8 +132,10 @@ let playGame = (() => {
             player = playerOne;
             playerOneLabel.classList.remove('active');
             playerTwoLabel.classList.add('active');
-            console.log(turnNumber);
-            if (computerBool == true) {
+            checkTurn.checkForWinner(player);
+            let matchWon = checkTurn.checkForMatchWon();
+            console.log(matchWon);
+            if (computerBool == true && matchWon == false) {
                 player = playerTwo;
                 setTimeout(() => easyBot(player), 1000);
             }
@@ -142,9 +145,9 @@ let playGame = (() => {
             player = playerTwo;
             playerTwoLabel.classList.remove('active');
             playerOneLabel.classList.add('active');
+            checkTurn.checkForWinner(player);
         }
         turnNumber++;
-        checkTurn.checkForWinner(player);
     }
 
     let easyBot = (player) => {
@@ -178,6 +181,7 @@ playGame.clickedOpponentButton();
 
 let checkTurn = (() => {
     let gameArray = gameBoard.gameArray;
+    let matchWon = false;
     let checkForWinner = (player) => {
         for (let i = 0; i < 3; i++) {
             if (gameArray[i] == null) {
@@ -189,6 +193,7 @@ let checkTurn = (() => {
                 // check for diagonal right win
                 (gameArray[i] == gameArray[i + 2] && gameArray[i + 2] == gameArray[i + 4])) {
                 // check for diagonal left win
+                matchWon = true;
                 winner.matchWon(player);
             }
         }
@@ -199,6 +204,7 @@ let checkTurn = (() => {
             }
             if (gameArray[j] == gameArray[j + 1] && gameArray[j + 1] == gameArray[j + 2]) {
                 // check for horizontal win
+                matchWon = true;
                 winner.matchWon(player);
             }
         }
@@ -206,8 +212,17 @@ let checkTurn = (() => {
         if (gameArray.includes(null) == false) {
             winner.tie();
         }
+        checkForMatchWon();
     }
-    return {checkForWinner}
+
+    let checkForMatchWon = () => {
+        return matchWon;
+    }
+
+    let resetMatchWon = () => {
+        matchWon = false;
+    }
+    return {checkForWinner, checkForMatchWon, resetMatchWon, matchWon}
 })();
 
 let clearBoard = (() => {
@@ -224,6 +239,7 @@ let clearBoard = (() => {
         cellClicked.clickedCell();
         playGame.resetTurnNumber();
         playGame.resetPlayerBackground();
+        checkTurn.resetMatchWon();
     }
     let deleteGrid = () => {
         let existingDivs = document.querySelectorAll('.gridCell');
