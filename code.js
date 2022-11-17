@@ -173,6 +173,8 @@ let checkTurn = (() => {
                 // check for diagonal left win
                 matchWon = true;
                 winner.matchWon(player);
+            } else if (gameArray.includes(null) == false) {
+                winner.tie();
             }
         }
         
@@ -187,9 +189,9 @@ let checkTurn = (() => {
             }
         }
 
-        if (gameArray.includes(null) == false) {
-            winner.tie();
-        }
+        // if (gameArray.includes(null) == false) {
+        //     winner.tie();
+        // }
         checkForMatchWon();
     }
 
