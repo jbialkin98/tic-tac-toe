@@ -68,6 +68,7 @@ cellClicked.clickedCell();
 
 let playGame = (() => {
     let turnNumber = 0;
+    let computerDifficulty;
     let gameArray = gameBoard.gameArray;
     let playerOneLabel = document.querySelector('.playerOneName');
     let playerTwoLabel = document.querySelector('.playerTwoName');
@@ -94,6 +95,20 @@ let playGame = (() => {
         }));
     }
 
+    let difficultySelector = () => {
+        const difficultyButtons = document.querySelectorAll('.difficultyButton');
+        const easyButton = document.getElementById('easy');
+        const normalButton = document.getElementById('normal');
+        difficultyButtons.forEach(difficultyButton => difficultyButton.addEventListener('click', () => {
+            difficultyButtons.forEach(difficultyButton => {
+                difficultyButton.classList.remove('active');
+            });
+            computerDifficulty = difficultyButton.id;
+            console.log(computerDifficulty);
+            difficultyButton.classList.add('active');
+        }));
+    }
+
     let resetTurnNumber = () => {
         turnNumber = 0;
     }
@@ -114,7 +129,11 @@ let playGame = (() => {
             let matchWon = checkTurn.checkForMatchWon();
             if (computerBool == true && matchWon == false) {
                 player = playerTwo;
-                setTimeout(() => easyBot(player), 1000);
+                if (computerDifficulty == 'easy') {
+                    setTimeout(() => easyBot(player), 1000);
+                } else {
+                    console.log(computerDifficulty);
+                }
             }
         } else {
             gridCell.innerHTML = '&#11096;';
@@ -154,10 +173,11 @@ let playGame = (() => {
         playerTwoLabel.classList.remove('active');
         playerOneLabel.classList.add('active');
     }
-    return {playTurn, resetTurnNumber, resetPlayerBackground, clickedOpponentButton, turnNumber}
+    return {playTurn, resetTurnNumber, resetPlayerBackground, clickedOpponentButton, difficultySelector, turnNumber}
 })();
 
 playGame.clickedOpponentButton();
+playGame.difficultySelector();
 
 let checkTurn = (() => {
     let gameArray = gameBoard.gameArray;
