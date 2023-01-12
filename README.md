@@ -1,0 +1,1 @@
+A basic implementation of Tic-Tac-Toe that can be played with either two players or a computer that performs random moves.
