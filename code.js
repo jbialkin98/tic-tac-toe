@@ -20,8 +20,6 @@ let gameBoard = (() => {
     return {createArray, deleteArray, gameArray};
 })();
 
-// git test
-
 gameBoard.createArray();
 
 let updateScoreDisplay = (() => {
