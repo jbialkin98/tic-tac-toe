@@ -20,6 +20,8 @@ let gameBoard = (() => {
     return {createArray, deleteArray, gameArray};
 })();
 
+// git test
+
 gameBoard.createArray();
 
 let updateScoreDisplay = (() => {
@@ -68,7 +70,6 @@ cellClicked.clickedCell();
 
 let playGame = (() => {
     let turnNumber = 0;
-    // let computerDifficulty = 'easy';
     let gameArray = gameBoard.gameArray;
     let playerOneLabel = document.querySelector('.playerOneName');
     let playerTwoLabel = document.querySelector('.playerTwoName');
@@ -95,20 +96,6 @@ let playGame = (() => {
         }));
     }
 
-    // let difficultySelector = () => {
-    //     const difficultyButtons = document.querySelectorAll('.difficultyButton');
-    //     const easyButton = document.getElementById('easy');
-    //     const normalButton = document.getElementById('normal');
-    //     difficultyButtons.forEach(difficultyButton => difficultyButton.addEventListener('click', () => {
-    //         difficultyButtons.forEach(difficultyButton => {
-    //             difficultyButton.classList.remove('active');
-    //         });
-    //         computerDifficulty = difficultyButton.id;
-    //         console.log(computerDifficulty);
-    //         difficultyButton.classList.add('active');
-    //     }));
-    // }
-
     let resetTurnNumber = () => {
         turnNumber = 0;
     }
@@ -129,11 +116,7 @@ let playGame = (() => {
             let matchWon = checkTurn.checkForMatchWon();
             if (computerBool == true && matchWon == false) {
                 player = playerTwo;
-                // if (computerDifficulty == 'easy') {
                 setTimeout(() => easyBot(player), 1000);
-                // } else {
-                //     console.log(computerDifficulty);
-                // }
             }
         } else {
             gridCell.innerHTML = '&#11096;';
@@ -167,35 +150,6 @@ let playGame = (() => {
         console.log(turnNumber);
     }
 
-    // let normalBot = (player) => {
-    //     let possibleMoves = [];
-    //     gameArray.forEach((element, index) => {
-    //         if (element == null) {
-    //             possibleMoves.push(index);
-    //         }
-    //     });
-    //     if (possibleMoves.length == 0) {
-    //         return;
-    //     }
-    //     checkTurn.checkForWinner(player);
-    //     if (checkTurn.checkForMatchWon() == false) {
-    //         return {score: -10};
-    //     } else if (possibleMoves.length == 0) {
-    //         return {score: 0};
-    //     } else if (checkTurn.checkForMatchWon() == true) {
-    //         return {score: 10};
-    //     }
-
-    //     let moves = [];
-    //     for (let i = 0; i < possibleMoves.length; i++) {
-    //         let move = {};
-    //         move.index = possibleMoves[i];
-    //         possibleMoves[i] = 'O';
-    //     }
-
-    // }
-
-
     const resetPlayerBackground = () => {
         playerOneLabel.classList.remove('active');
         playerTwoLabel.classList.remove('active');
@@ -205,7 +159,6 @@ let playGame = (() => {
 })();
 
 playGame.clickedOpponentButton();
-// playGame.difficultySelector();
 
 let checkTurn = (() => {
     let gameArray = gameBoard.gameArray;
